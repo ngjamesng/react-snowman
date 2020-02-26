@@ -3,17 +3,17 @@ import { render, fireEvent } from "@testing-library/react";
 import Snowman from "./Snowman";
 
 // smoke test
-it("renders without crashing", function() {
+it("renders without crashing", function () {
   render(<Snowman />);
 });
 
 // snapshot test
-it("matches snapshot", function() {
-  const {asFragment} = render(<Snowman />);
+it("matches snapshot", function () {
+  const { asFragment } = render(<Snowman />);
   expect(asFragment()).toMatchSnapshot();
 });
 
-it("changes the image to img1 after the first incorrect guess", function(){
+it("changes the image to img1 after the first incorrect guess", function () {
   const { queryByAltText, queryByText } = render(<Snowman />);
   const wrongLetter = queryByText("m");
   const img = queryByAltText("img0");
@@ -23,8 +23,8 @@ it("changes the image to img1 after the first incorrect guess", function(){
   expect(img).not.toContainHTML(`img0`);
 });
 
-it("the image stays the same and letter is revealed if a correct guess is clicked ", function(){
-  const { queryByAltText, queryByText , getByTestId} = render(<Snowman />);
+it("the image stays the same and letter is revealed if a correct guess is clicked ", function () {
+  const { queryByAltText, queryByText, getByTestId } = render(<Snowman />);
   const correctLetter = queryByText("a");
   const img = queryByAltText("img0");
   fireEvent.click(correctLetter);
@@ -39,3 +39,15 @@ it("the image stays the same and letter is revealed if a correct guess is clicke
   expect(guessedWord).toHaveTextContent("_");
   expect(guessedWord).not.toHaveTextContent("m");
 });
+
+it("should end the game after 6 guesses ", function () {
+  const { queryByText, queryByTestId } = render(<Snowman />);
+  const snowman = queryByTestId("snowman");
+
+  // Click wrong letters 6 times
+  const wrongLetters = [..."bzxqyw"];
+  wrongLetters.forEach(l => fireEvent.click(queryByText(l)));
+
+  expect(snowman).toHaveTextContent("You lose");
+});
+

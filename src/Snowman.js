@@ -8,7 +8,7 @@ import img4 from "./4.png";
 import img5 from "./5.png";
 import img6 from "./6.png";
 
-function Snowman({maxWrong, images, words}) {
+function Snowman({ maxWrong, images, words }) {
   /** by default, allow 6 guesses and use provided gallows images. */
 
   const [nWrong, updateNWrong] = useState(0);
@@ -55,11 +55,11 @@ function Snowman({maxWrong, images, words}) {
 
   /** render: render game */
   return (
-    <div className="Snowman">
-      <img src={images[nWrong]} alt={`img${nWrong}`}/>
-      <p>Number wrong: {nWrong}</p>
+    <div className="Snowman" data-testid="snowman">
+      <img src={images[nWrong]} alt={`img${nWrong}`} />
+      <p> Number wrong: {nWrong}</p>
       <p className="Snowman-word" data-testid="guessedWord">{guessedWord()}</p>
-      <p>{generateButtons()}</p>
+      <p>{nWrong < maxWrong ? generateButtons() : `You lose`}</p>
     </div>
   );
 }

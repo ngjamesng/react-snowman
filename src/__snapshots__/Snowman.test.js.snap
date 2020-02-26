@@ -4,11 +4,15 @@ exports[`matches snapshot 1`] = `
 <DocumentFragment>
   <div
     class="Snowman"
+    data-testid="snowman"
   >
     <img
       alt="img0"
       src="0.png"
     />
+    <p>
+       Number wrong: 0
+    </p>
     <p
       class="Snowman-word"
       data-testid="guessedWord"
