@@ -56,8 +56,9 @@ function Snowman({maxWrong, images, words}) {
   /** render: render game */
   return (
     <div className="Snowman">
-      <img src={images[nWrong]}/>
-      <p className="Snowman-word">{guessedWord()}</p>
+      <img src={images[nWrong]} alt={`img${nWrong}`}/>
+      <p>Number wrong: {nWrong}</p>
+      <p className="Snowman-word" data-testid="guessedWord">{guessedWord()}</p>
       <p>{generateButtons()}</p>
     </div>
   );
